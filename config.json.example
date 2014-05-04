@@ -1,0 +1,53 @@
+{
+  "network": {
+    "ip": "192.168.1.1",
+    "subnetMask": "255.255.255.0",
+    "enableDhcp": true,
+    "rangeStart": "10",
+    "rangeEnd": "250",
+    "leaseTime": "3600",
+    "leaseReservations": [
+      {
+        "macAddress": "ae:34:56:78:90:12",
+        "ip": "53",
+        "hostname": "foobar"
+      }
+    ]
+  },
+  "password": "12345678",
+  "router": {
+    "pingFromWeb": false,
+    "webRemoteAccess": false,
+    "upnp": false,
+    "dmzHost": "foobar",
+    "portForwarding": [
+      {
+        "ip": "50",
+        "from": "22",
+        "to": "22",
+        "protocol": "TCP",
+        "name": "SSH foobar"
+      }
+    ]
+  },
+  "system": {
+    "disableWifiWhileUsb": false
+  },
+  "time": {
+    "enable": true,
+    "ntpServer": "time.windows.com",
+    "dailightSaving": true,
+    "timezone": "Pacific Standard Time"
+  },
+  "wifi": {
+    "enable": true,
+    "ssid": "foobar-wifi",
+    "password": "foobar-wifi",
+    "broadcastSsid": true,
+    "wpaMode": "WPA2-PSK",
+    "encryption": "Auto",
+    "channelNum": "0",
+    "workingMode": "802.11g",
+    "txPower": "short"
+  }
+}
