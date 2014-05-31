@@ -8,6 +8,7 @@ This tools allows communication with the FreedomPop Photon.
 - Check device status
 - Check device battery status
 - Read attached hosts
+- Monitor device configuration, send useful events
 
 ## Usage
 
