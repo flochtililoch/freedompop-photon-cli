@@ -1,11 +1,11 @@
 {
-  "name": "freedompop-photon-autoconfig",
+  "name": "freedompop-photon-cli",
   "version": "0.0.1",
   "description": "Script the configuration of your freedompop photon",
   "publishConfig": {
     "registry": "http://registry.npmjs.org"
   },
-  "homepage": "https://github.com/flochtililoch/freedompop-photon-autoconfig",
+  "homepage": "https://github.com/flochtililoch/freedompop-photon-cli",
   "keywords": [
     "freedompop",
     "photon",
@@ -17,9 +17,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/flochtililoch/freedompop-photon-autoconfig"
+    "url": "git://github.com/flochtililoch/freedompop-photon-cli"
   },
-  "bugs": "https://github.com/flochtililoch/freedompop-photon-autoconfig/issues",
+  "bugs": "https://github.com/flochtililoch/freedompop-photon-cli/issues",
   "engines": {
     "node": "0.8.x || 0.9.x || 0.10.x"
   },

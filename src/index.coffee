@@ -7,11 +7,12 @@ options =
   battery: 'Get device battery status.'
   attached: 'Get attached hosts.'
   reboot: 'Reboot device.'
+  monitor: 'Monitor device configuration. Send useful events.'
 
 args = process.argv.slice(2)
 action = args[0]
 password = args[1] or 'admin'
-host = args[2] or 'localhost:8090'
+host = args[2] or '192.168.1.1'
 
 unless options[action]
   console.log "Options:"
@@ -20,5 +21,5 @@ unless options[action]
 
 photon = new Photon host
 photon.authenticate password, ->
-  photon[action] (err, results) ->
+  photon[action] args, (err, results) ->
     console.log results
