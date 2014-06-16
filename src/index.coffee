@@ -1,5 +1,5 @@
 Photon = require './photon'
-config = require './config.json'
+config = require '../config.json'
 
 options =
   configure: 'Apply configuration to factory device.'

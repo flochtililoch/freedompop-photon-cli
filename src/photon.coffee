@@ -68,8 +68,7 @@ class Photon extends EventEmitter
 
   monitor: (args, done) ->
     monitor = =>
-      @status args, (err, status) ->
-        console.log err, status
+      @status args, (err, status) =>
         unless err?
           {ID_WIFI_SSID, ID_WIMAX_STATUS} = status
 
