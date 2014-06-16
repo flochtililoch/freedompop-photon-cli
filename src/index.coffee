@@ -1,4 +1,5 @@
 Photon = require './photon'
+config = require './config.json'
 
 options =
   configure: 'Apply configuration to factory device.'
@@ -19,7 +20,7 @@ unless options[action]
   console.log "  #{action}: #{description}" for action, description of options
   return
 
-photon = new Photon host
+photon = new Photon host, config
 photon.authenticate password, ->
   photon[action] args, (err, results) ->
     console.log results

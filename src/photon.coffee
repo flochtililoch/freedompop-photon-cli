@@ -3,7 +3,6 @@ request        = require 'request'
 {EventEmitter} = require 'events'
 {validate}     = require 'jsonschema'
 {schema}       = require './schema'
-config         = require '../config.json'
 
 attached = require './attached'
 auth     = require './auth'
@@ -22,7 +21,7 @@ mainEndpoint = 'webmain.cgi'
 
 class Photon extends EventEmitter
 
-  constructor: (@hostname) ->
+  constructor: (@hostname, @config) ->
 
   sendRequest: (form, done = ->) ->
     jar = true
@@ -39,16 +38,16 @@ class Photon extends EventEmitter
     @sendRequest auth(password), done
 
   configure: (_, done) ->
-    errors = validate(config, schema).errors
+    errors = validate(@config, schema).errors
     throw new Error ["Configuration file error"].concat(errors.map ({property, message}) -> "#{property} #{message}").join('\n') if errors.length
 
     requests =
-      setupSystem:   (done) => @sendRequest system(config.system),     done
-      setupTime:     (done) => @sendRequest time(config.time),         done
-      setupWifi:     (done) => @sendRequest wifi(config.wifi),         done
-      setupNetwork:  (done) => @sendRequest network(config.network),   done
-      setupRouter:   (done) => @sendRequest router(config.router),     done
-      setupPassword: (done) => @sendRequest password(config.password), done
+      setupSystem:   (done) => @sendRequest system(@config.system),     done
+      setupTime:     (done) => @sendRequest time(@config.time),         done
+      setupWifi:     (done) => @sendRequest wifi(@config.wifi),         done
+      setupNetwork:  (done) => @sendRequest network(@config.network),   done
+      setupRouter:   (done) => @sendRequest router(@config.router),     done
+      setupPassword: (done) => @sendRequest password(@config.password), done
 
     async.auto requests, done
 
@@ -74,7 +73,7 @@ class Photon extends EventEmitter
         unless err?
           {ID_WIFI_SSID, ID_WIMAX_STATUS} = status
 
-          if ID_WIFI_SSID isnt config.wifi.ssid
+          if ID_WIFI_SSID isnt @config.wifi.ssid
             @emit 'lost_configuration', status
 
           if ID_WIMAX_STATUS is 'CONNECTED' and @previousStatus?.ID_WIMAX_STATUS is 'CONNECTING'
