@@ -66,16 +66,21 @@ class Photon extends EventEmitter
   reboot: ->
     @sendRequest reboot
 
-  monitor: (args, done) ->
+  monitor: (args = {}, done) ->
     monitor = =>
       @status args, (err, status) =>
-        unless err?
+        if err?
+          if @previousStatus isnt null
+            @previousStatus = null
+            @emit 'error_communicating_with_photon', err
+
+        else
           {ID_WIFI_SSID, ID_WIMAX_STATUS} = status
 
           if ID_WIFI_SSID isnt @config.wifi.ssid
             @emit 'lost_configuration', status
 
-          if ID_WIMAX_STATUS is 'CONNECTED' and @previousStatus?.ID_WIMAX_STATUS is 'CONNECTING'
+          if ID_WIMAX_STATUS is 'CONNECTED' and @previousStatus?.ID_WIMAX_STATUS isnt 'CONNECTED'
             @emit 'connected', status
 
           if ID_WIMAX_STATUS isnt 'CONNECTED' and @previousStatus?.ID_WIMAX_STATUS is 'CONNECTED'
